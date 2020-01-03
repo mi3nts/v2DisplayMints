@@ -37,28 +37,16 @@ def showIntro():
 
 while(True):
 
-	imgBase               = Image.new('RGB', (800,480), color = (0, 0, 0))
-
-	OPCN3 ,validOPCN3         = mL.readJSONLatestAll("OPCN3")
-	BME280,validBME280        = mL.readJSONLatestAll("BME280")
-	LIBRAD ,validLIBRAD       = mL.readJSONLatestAll("LIBRAD")
-	APDS9002,validAPDS9002    = mL.readJSONLatestAll("APDS9002")
-
-
+	OPCN3 ,validOPCN3  = mL.readJSONLatestAll("OPCN3")
+	BME280,validBME280 = mL.readJSONLatestAll("BME280")
 	pm1   = str(OPCN3['pm1']).rjust(7," ")
 	pm2_5 = str(OPCN3['pm2_5']).rjust(7," ")
 	pm10  = str(OPCN3['pm10']).rjust(7," ")
-	
 	temperature = BME280['temperature']
 	pressure    = float(BME280['pressure'])/100
 	humidity    = BME280['humidity']
-	
-	luminance   = APDS9002['luminance']
-	radiation   = LIBRAD['radiationValue']
- 
 	lastUpdate  = str(OPCN3['dateTime'])
 	d = ImageDraw.Draw(imgBase)
-
 	d.text((1,1),  "  ")
 	d.text((1,5),  "  MINTS (Multi-Scale Integrated Sensing and Simulation)", font=fnt, fill="GREEN")
 	d.text((1,30), "--------------------------------------------------------------------------------------------------", font=fnt, fill="WHITE")
@@ -69,12 +57,10 @@ while(True):
 	d.text((1,175),"  Temperature ="   + temperature + " C", font=fnt, fill="WHITE")
 	d.text((1,205),"  Pressure    = "  + str(pressure) + " mbar"  , font=fnt, fill="WHITE")
 	d.text((1,235),"  Humidity    = "  + humidity+  " %", font=fnt, fill="WHITE")
-	d.text((1,265),"--------------------------------------------------------------------------------------------------", font=fnt, fill="WHITE")
-	d.text((1,295),"  Luminance = "   + luminance , font=fnt, fill="WHITE")
-	d.text((1,325),"  Radiation  = "  + radiation , font=fnt, fill="WHITE")
-	d.text((1,355),"--------------------------------------------------------------------------------------------------", font=fnt, fill="WHITE")
-	d.text((1,385),"  Last Updated ="   + lastUpdate , font=fnt, fill="WHITE")
+	d.text((1,275),"--------------------------------------------------------------------------------------------------", font=fnt, fill="WHITE")
+	d.text((1,305),"  Last Updated ="   + lastUpdate , font=fnt, fill="WHITE")
 	d.text((1,450),"  MINTS (Multi-Scale Integrated Sensing and Simulation)", font=fnt, fill="GREEN")
+
 	rotated_image = imgBase.rotate(90)
 	flipped_img   = rotated_image.transpose(Image.FLIP_LEFT_RIGHT)
 	flipped_img.save("mintsLive.bmp")
@@ -82,4 +68,4 @@ while(True):
 	time.sleep(2)
 
 	os.system("vodisp bitmap mintsLive.bmp")
-	
+	time.sleep(2)
