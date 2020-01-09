@@ -17,7 +17,7 @@ SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
 
 def showIntro():
 
-	os.system("vodisp bitmap mints000.bmp")
+	os.system("vodisp bitmap mints50.bmp")
 	time.sleep(5)
 	os.system("vodisp bitmap mints02.bmp")
 	time.sleep(5)
@@ -33,11 +33,24 @@ def showIntro():
 
 
 
-showIntro()
+# showIntro()
+
+
+
+
+
+
+
+
+
+
 
 while(True):
-	try:
+	
 
+
+	try:
+		
 		imgBase               = Image.new('RGB', (800,480), color = (0, 0, 0))
 
 		OPCN3 ,validOPCN3         = mL.readJSONLatestAll("OPCN3")
